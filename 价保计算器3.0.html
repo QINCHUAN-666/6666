@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>价保计算器</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #f7f9fb;
+      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+      min-width: 320px;
+      max-width: 90vw;
+    }
+    .calculator h2 {
+      text-align: center;
+      margin-bottom: 28px;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: #2d3a4b;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+      color: #6b7a90;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #e3e8ee;
+      border-radius: 6px;
+      background: #f4f7fa;
+      color: #2d3a4b;
+      font-size: 16px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border 0.2s;
+    }
+    input[type="number"]:focus {
+      border: 1.5px solid #3a7afe;
+      background: #fff;
+    }
+    .result {
+      margin-top: 22px;
+      padding: 14px 0;
+      text-align: center;
+      font-size: 18px;
+      border-radius: 8px;
+      background: #f4f7fa;
+      min-height: 32px;
+      color: #2d3a4b;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    .result.positive {
+      color: #1a7f37;
+      background: #e6f4ea;
+    }
+    .result.negative {
+      color: #b71c1c;
+      background: #fdeaea;
+    }
+    @media (max-width: 500px) {
+      .calculator {
+        padding: 18px 8px 14px 8px;
+        min-width: unset;
+      }
+      .calculator h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>价保计算器</h2>
+    <div class="form-group">
+      <label for="price">订单商品单价（元）</label>
+      <input type="number" id="price" min="0" step="0.01" placeholder="请输入订单商品单价">
+    </div>
+    <div class="form-group">
+      <label for="promo">DJI促销价（元）</label>
+      <input type="number" id="promo" min="0" step="0.01" placeholder="请输入DJI促销价">
+    </div>
+    <div class="form-group">
+      <label for="refund">已退差金额（元）</label>
+      <input type="number" id="refund" min="0" step="0.01" placeholder="请输入已退差金额">
+    </div>
+    <div class="result" id="result">请填写上方信息</div>
+  </div>
+  <script>
+    const priceInput = document.getElementById('price');
+    const promoInput = document.getElementById('promo');
+    const refundInput = document.getElementById('refund');
+    const resultDiv = document.getElementById('result');
+
+    function calculate() {
+      const price = parseFloat(priceInput.value) || 0;
+      const promo = parseFloat(promoInput.value) || 0;
+      const refund = parseFloat(refundInput.value) || 0;
+      const diff = price - promo - refund;
+
+      if (!priceInput.value && !promoInput.value && !refundInput.value) {
+        resultDiv.textContent = '请填写上方信息';
+        resultDiv.className = 'result';
+        return;
+      }
+
+      if (diff > 0.0001) {
+        resultDiv.textContent = `应价保金额：${diff.toFixed(2)}元，请为客户申请价保`;
+        resultDiv.className = 'result positive';
+      } else {
+        resultDiv.textContent = '无需价保';
+        resultDiv.className = 'result negative';
+      }
+    }
+
+    priceInput.addEventListener('input', calculate);
+    promoInput.addEventListener('input', calculate);
+    refundInput.addEventListener('input', calculate);
+  </script>
+</body>
+</html>
