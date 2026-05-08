@@ -475,7 +475,7 @@
             },
             A: {
                 grade: 'A',
-                scoreRange: '3.5 - 4.4 分',
+                scoreRange: '3.8 - 4.4 分',
                 notifyMethod: 'GT群',
                 notifyScope: 'CC业务管理群<br>【组群】系统组稳！稳！稳！<br>IBG 大群',
                 warningNotice: '需要',
@@ -486,7 +486,7 @@
             },
             B: {
                 grade: 'B',
-                scoreRange: '2.5 - 3.4 分',
+                scoreRange: '3.0 - 3.8 分',
                 notifyMethod: 'GT群',
                 notifyScope: 'CC业务管理群<br>【组群】系统组稳！稳！稳！<br>CC系统运维群',
 	warningNotice: '需要',
@@ -497,7 +497,7 @@
             },
             C: {
                 grade: 'C',
-                scoreRange: '1.5 - 2.4 分',
+                scoreRange: '1.5 - 3.0 分',
                 notifyMethod: '记录在异常清单* 重复高频问题需按此流程通告',
                 notifyScope: 'CC系统运维群',
                 warningNotice: '不需要',
@@ -566,8 +566,8 @@
 
             let grade;
             if (totalScore >= 4.5) grade = 'S';
-            else if (totalScore >= 3.5) grade = 'A';
-            else if (totalScore >= 2.5) grade = 'B';
+            else if (totalScore >= 3.8) grade = 'A';
+            else if (totalScore >= 3.0) grade = 'B';
             else if (totalScore >= 1.5) grade = 'C';
             else grade = 'D';
             document.getElementById('report-grade').value = `${grade}级`;
